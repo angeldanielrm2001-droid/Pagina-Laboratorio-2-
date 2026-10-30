@@ -1,6 +1,6 @@
 /* Artesanías El Olivo · interfaz de demostración (datos en localStorage, sin servidor) */
 const WA='https://wa.me/50300000000'; // reemplaza por el número real
-const API_URL='https://script.google.com/macros/s/AKfycbzYQjBt6FORNFZcQf75qNUDW8imEBIPJB_HKdvCE6WL23gnFpb38jVkSoERqTuuOb3W/exec'; 
+const API_URL='https://script.google.com/macros/s/AKfycbzaZFEYGAO7ix7t3upBmMjEBfwaZ4Qf2vqOt6_7BAAl6_86qZqJbztyNt1BcODow0o5/exec'; 
 const api=(action,data)=>{if(!API_URL)return;fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action,data})}).then(r=>r.json()).then(r=>{if(!r.ok)throw r.error}).catch(()=>toast('No se pudo guardar en la hoja de cálculo'))};
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
 const L=(k,d)=>{try{return JSON.parse(localStorage.getItem('olv_'+k))??d}catch{return d}},S=(k,v)=>localStorage.setItem('olv_'+k,JSON.stringify(v));
