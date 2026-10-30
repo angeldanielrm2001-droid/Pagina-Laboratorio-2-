@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Artesanías El Olivo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&family=Young+Serif&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Saltar al contenido</a>
+<header class="top">
+  <a href="#inicio" class="brand">El Olivo <small>Artesanías</small></a>
+  <nav id="nav" aria-label="Principal">
+    <a href="#inicio">Inicio</a><a href="#catalogo">Catálogo</a><a href="#proceso">El proceso</a><a href="#cotizacion">Cotización</a><a href="#contacto">Contacto</a>
+  </nav>
+  <form id="sq" role="search"><input type="search" placeholder="Buscar muebles" aria-label="Buscar muebles"></form>
+  <button id="ses" class="btn ghost" type="button">Ingresar</button>
+  <button id="out" class="btn ghost" type="button" hidden>Cerrar sesión</button>
+</header>
+
+<main id="main">
+<!-- INICIO -->
+<section class="view" id="v-inicio">
+  <div class="hero wrap">
+    <div>
+      <h1>Calidez para tu hogar</h1>
+      <p class="lead">Información del banner</p>
+      <p><a class="btn" href="#catalogo">Ver catálogo</a> <a class="btn ghost" href="#cotizacion">Pedir cotización</a></p>
+    </div>
+    <svg class="art" viewBox="0 0 200 220" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M60 20h80l8 90H52z"/><path d="M72 40v60M100 40v60M128 40v60"/><path d="M52 110h96v18H52z"/><path d="M60 128l-8 70M140 128l8 70M72 128v52M128 128v52"/></g></svg>
+  </div>
+  <div class="wrap"><h2>Productos Destacados</h2><div class="grid" id="feat"></div></div>
+  <div class="wrap"><h2>Categorías</h2><div class="cats" id="cats"></div></div>
+  <div class="wrap"><h2>Nuestra historia</h2>
+    <div class="cols3"><article class="panel"><h3>Historia</h3><p>Información</p></article><article class="panel"><h3>Misión</h3><p>Información</p></article><article class="panel"><h3>Valores</h3><p>Información</p></article></div></div>
+  <div class="wrap"><h2>Opiniones de clientes</h2><div class="cols3" id="testi"></div></div>
+</section>
+
+<!-- CATÁLOGO -->
+<section class="view wrap" id="v-catalogo" hidden>
+  <h1>Catálogo</h1>
+  <form id="flt" class="filters">
+    <label>Palabra clave<input name="q" type="search" placeholder="Información"></label>
+    <label>Categoría<select name="cat"><option value="">Todas</option><option>Comedores</option><option>Repisas</option><option>Decoración</option><option>Negocios</option></select></label>
+    <label>Tipo de madera<select name="wood"><option value="">Todas</option><option>Cedro</option><option>Pino</option><option>Caoba</option></select></label>
+    <label>Precio máximo: $<output id="pout">500</output><input name="max" type="range" min="50" max="500" step="10" value="500"></label>
+    <button type="button" class="btn ghost" id="fclr">Limpiar</button>
+  </form>
+  <p id="rcount" class="muted" aria-live="polite"></p>
+  <div id="empty" class="panel" hidden><h3>No encontramos resultados</h3><p>Prueba con otros filtros. Mientras tanto, estos productos son similares:</p></div>
+  <div class="grid" id="grid"></div>
+</section>
+
+<!-- FICHA -->
+<section class="view wrap" id="v-ficha" hidden><a href="#catalogo" class="back">Volver al catálogo</a><div id="fichac"></div></section>
+
+<!-- PROCESO -->
+<section class="view wrap" id="v-proceso" hidden>
+  <h1>El proceso</h1>
+  <h2>Materiales</h2>
+  <div class="cols3"><article class="panel"><h3>Cedro</h3><p>Información</p></article><article class="panel"><h3>Pino</h3><p>Información</p></article><article class="panel"><h3>Caoba</h3><p>Información</p></article></div>
+  <h2>Etapas del taller</h2>
+  <ol class="steps"><li><b>Diseño</b><span>Información</span></li><li><b>Corte y armado</b><span>Información</span></li><li><b>Tratado y acabado</b><span>Información</span></li><li><b>Entrega</b><span>Información</span></li></ol>
+  <h2>Galería de obras</h2>
+  <div class="gal" id="gal"></div>
+  <h2>Preguntas frecuentes</h2>
+  <div class="tabs" id="faqt"><button class="on" data-c="">Todas</button><button data-c="Pedidos">Pedidos</button><button data-c="Materiales">Materiales</button><button data-c="Entregas">Entregas</button></div>
+  <div id="faq">
+    <details data-c="Pedidos"><summary>Información</summary><p>Información</p></details>
+    <details data-c="Pedidos"><summary>Información</summary><p>Información</p></details>
+    <details data-c="Materiales"><summary>Información</summary><p>Información</p></details>
+    <details data-c="Materiales"><summary>Información</summary><p>Información</p></details>
+    <details data-c="Entregas"><summary>Información</summary><p>Información</p></details>
+  </div>
+</section>
+
+<!-- COTIZACIÓN -->
+<section class="view wrap narrow" id="v-cotizacion" hidden>
+  <h1>Solicitar cotización</h1>
+  <form id="qf" class="form" novalidate>
+    <p id="qauto" class="note" hidden>Datos autocompletados con tu sesión.</p>
+    <p id="qprod" class="note" hidden></p>
+    <label>Nombre<input name="name" autocomplete="name"><span class="err"></span></label>
+    <label>Correo electrónico<input name="email" type="email" autocomplete="email"><span class="err"></span></label>
+    <label>Describe tu proyecto<textarea name="desc" rows="4" placeholder="Información"></textarea><span class="err"></span></label>
+    <div class="two"><label>Medidas<input name="size" placeholder="Información"></label>
+    <label>Madera<select name="wood"><option>Cedro</option><option>Pino</option><option>Caoba</option></select></label></div>
+    <label>Fotos de referencia<input name="pics" type="file" accept="image/*" multiple><span class="muted" id="pnames"></span></label>
+    <button class="btn" type="submit">Enviar solicitud</button>
+  </form>
+  <div id="qres" hidden></div>
+</section>
+
+<!-- CONTACTO -->
+<section class="view wrap" id="v-contacto" hidden>
+  <h1>Contacto</h1>
+  <div class="two big">
+    <form id="cf" class="form" novalidate>
+      <label>Nombre<input name="name"><span class="err"></span></label>
+      <label>Correo electrónico<input name="email" type="email"><span class="err"></span></label>
+      <label>Mensaje<textarea name="msg" rows="4"></textarea><span class="err"></span></label>
+      <p><button class="btn" type="submit">Enviar por correo</button> <a class="btn ghost wa-link" target="_blank" rel="noopener" href="#">Escribir por WhatsApp</a></p>
+    </form>
+    <div>
+      <article class="panel"><h3>Horario</h3><p>Información</p></article>
+      <div class="map" role="img" aria-label="Mapa de ubicación">Mapa · Información</div>
+      <p><a class="btn ghost" target="_blank" rel="noopener" href="https://www.facebook.com/">Facebook</a> <a class="btn ghost" target="_blank" rel="noopener" href="https://www.instagram.com/">Instagram</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- LOGIN -->
+<section class="view wrap narrow" id="v-login" hidden>
+  <h1>Iniciar sesión</h1>
+  <form id="lf" class="form" novalidate>
+    <label>Correo electrónico<input name="email" type="email" autocomplete="username"></label>
+    <label>Contraseña<input name="pass" type="password" autocomplete="current-password"></label>
+    <p class="note">Demo: cualquier correo y contraseña de 4+ caracteres. Si el correo contiene “admin”, entras como administrador.</p>
+    <div id="lerr" class="alert" role="alert" hidden>Credenciales no válidas. <button type="button" class="link" id="lretry">Reintentar</button> o <button type="button" class="link" id="lrec">recuperar contraseña</button>.</div>
+    <button class="btn" type="submit">Entrar</button>
+    <button class="btn ghost" type="button" id="lguest">Continuar como visitante</button>
+  </form>
+  <form id="rf" class="form" hidden novalidate><h3>Recuperar contraseña</h3>
+    <label>Correo del administrador<input name="email" type="email"></label><button class="btn" type="submit">Enviar enlace seguro</button></form>
+</section>
+
+<!-- PANEL CLIENTE -->
+<section class="view wrap" id="v-cliente" hidden>
+  <h1>Mi panel</h1>
+  <h2>Favoritos</h2><div class="grid" id="cfav"></div>
+  <h2>Mis cotizaciones</h2><div id="cq"></div>
+  <h2>Dejar una opinión</h2>
+  <form id="of" class="form narrow"><label>Tu opinión<textarea name="t" rows="3" required></textarea></label><button class="btn" type="submit">Enviar para aprobación</button></form>
+</section>
+
+<!-- PANEL ADMIN -->
+<section class="view wrap" id="v-admin" hidden>
+  <h1>Panel administrativo</h1>
+  <div class="tabs" id="atabs"><button class="on" data-t="p">Catálogo</button><button data-t="q">Cotizaciones</button><button data-t="c">Contenido</button><button data-t="r">Reportes</button></div>
+  <div id="ap"></div><div id="aq" hidden></div><div id="ac" hidden></div>
+  <div id="ar" hidden><p>Exporta la información registrada hasta ahora.</p><p><button class="btn" data-x="pdf">Exportar PDF</button> <button class="btn ghost" data-x="xls">Exportar Excel</button></p></div>
+  <h2>Bitácora</h2><ul id="blog" class="log"></ul>
+  <p><button class="btn ghost" id="aout">Cerrar sesión</button></p>
+</section>
+</main>
+
+<footer class="foot wrap"><span>Artesanías El Olivo</span><span class="muted">Información</span></footer>
+<div class="float" aria-label="Accesos rápidos">
+  <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook">f</a>
+  <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">ig</a>
+  <a class="wa wa-link" href="#" target="_blank" rel="noopener">WhatsApp</a>
+</div>
+<dialog id="lb"><button class="btn ghost" id="lbx" aria-label="Cerrar">Cerrar</button><div class="ph big" id="lbi"></div></dialog>
+<div id="toast" role="status" aria-live="polite"></div>
+<script src="js/app.js"></script>
+</body>
+</html>
