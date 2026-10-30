@@ -53,7 +53,8 @@ function ficha(){
   <div class="acts"><button class="btn ghost" data-pdf>Descargar PDF</button><button class="btn ghost fav-b" data-f="${p.id}" aria-pressed="${favs.includes(p.id)}">${favs.includes(p.id)?'Quitar de favoritos':'Favorito'}</button><button class="btn" data-q="${p.id}">Cotizar</button><a class="btn ghost wa-link" target="_blank" rel="noopener" href="${WA}">WhatsApp</a></div></div></div>`;
 }
 function cot(){
-  const f=$('#qf');$('#qauto').hidden=!sess;
+  const f=$('#qf');if(!$('#qres').hidden){newQuote();return} // si ya se envió una solicitud, muestra el formulario limpio
+  $('#qauto').hidden=!sess;
   if(sess){f.email.value=sess.email;f.name.value=f.name.value||sess.email.split('@')[0]}
   const p=prods.find(x=>x.id==qprod);$('#qprod').hidden=!p;if(p)$('#qprod').textContent=`Producto precargado: Información (${p.cat}, ${p.wood}, $${p.price})`;
 }
@@ -134,15 +135,21 @@ $('#lf').onsubmit=e=>{e.preventDefault();const f=e.target;
   $('#lerr').hidden=true;sess={email:f.email.value,role:/admin/i.test(f.email.value)?'admin':'cliente'};S('sess',sess);
   if(sess.role=='admin')note('Inicio de sesión de administrador');toast('Bienvenido');go(sess.role=='admin'?'admin':'cliente')};
 $('#rf').onsubmit=e=>{e.preventDefault();if(!mail(e.target.email.value))return toast('Escribe un correo válido');toast('Enlace seguro enviado a '+e.target.email.value);e.target.hidden=true};
-$('#qf').onsubmit=e=>{e.preventDefault();const f=e.target;clean(f);let ok=1;
+function newQuote(){ // vuelve a mostrar el formulario vacío
+  const f=$('#qf');f.reset();f.style.display='';f.querySelector('[type=submit]').disabled=false;delete f.dataset.busy;
+  $('#qres').hidden=true;$('#pnames').textContent='';cot();scrollTo(0,0);
+}
+$('#qf').onsubmit=e=>{e.preventDefault();const f=e.target;if(f.dataset.busy)return;clean(f);let ok=1;
   if(!f.name.value.trim()){fail(f,'name','Escribe tu nombre');ok=0}
   if(!mail(f.email.value)){fail(f,'email','Escribe un correo válido');ok=0}
   if(f.desc.value.trim().length<5){fail(f,'desc','Describe tu proyecto (mínimo 5 caracteres)');ok=0}
   if(!ok)return;
+  f.dataset.busy=1;f.querySelector('[type=submit]').disabled=true; // evita envíos duplicados
   const q={folio:'OLV-'+(Math.max(1000,...quotes.map(x=>+String(x.folio).slice(4)||0))+1),name:f.name.value,email:f.email.value,desc:f.desc.value,state:0};quotes.push(q);
   api('addQuote',{folio:q.folio,fecha:now(),nombre:q.name,correo:q.email,descripcion:q.desc,medidas:f.size.value,madera:f.wood.value,producto_id:qprod||'',estado:0});window.curQ=q.folio;note('Nueva solicitud '+q.folio);
-  f.hidden=true;const r=$('#qres');r.hidden=false;
-  r.innerHTML=`<h2>Solicitud guardada</h2><p>Tu número de folio es <b>${q.folio}</b>.</p><ul class="ticks"><li>Confirmación en pantalla</li><li>Copia enviada a ${q.email}</li><li>Aviso al taller</li></ul><div id="qoffer"></div><p><button class="btn ghost" onclick="location.reload()">Nueva solicitud</button></p>`;
+  f.style.display='none';const r=$('#qres');r.hidden=false;
+  r.innerHTML=`<div class="note" role="status"><b>✓ Solicitud enviada.</b> Tu número de folio es <b>${q.folio}</b>.</div><ul class="ticks"><li>Confirmación en pantalla</li><li>Copia enviada a ${q.email}</li><li>Aviso al taller</li></ul><div id="qoffer"></div><p><button class="btn ghost" type="button" onclick="newQuote()">Hacer otra solicitud</button></p>`;
+  toast('Solicitud enviada. Tu folio es '+q.folio);scrollTo(0,0);
   $$('.ticks li',r).forEach((li,i)=>setTimeout(()=>li.classList.add('on'),400*(i+1)));
   setTimeout(()=>{setState(q,1);offer(q)},1500);save();qprod=null};
 $('#cf').onsubmit=e=>{e.preventDefault();const f=e.target;clean(f);let ok=1;
