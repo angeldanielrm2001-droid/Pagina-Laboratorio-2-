@@ -1,5 +1,6 @@
 :root{--bg:#F6F4EF;--paper:#fff;--ink:#33261D;--muted:#6E6256;--line:#DDD5C8;--olive:#53643A;--olive-d:#3F4E2B;--sage:#E5E9DA;--oak:#C99A6B;--err:#A63A2B;--r:6px}
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--ink);font:400 1rem/1.6 "Hanken Grotesk",system-ui,sans-serif}
 h1,h2,h3{font-family:"Young Serif",Georgia,serif;font-weight:400;line-height:1.2;margin:0 0 .6em}
